@@ -7,7 +7,7 @@ project:
 website:
   title: "MUSA 550"
   page-footer:
-    left: "delmelle@gmail.com"
+    left: "songjamie97@gmail.com"
     right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
 
   sidebar:
@@ -16,14 +16,14 @@ website:
     align: center
     tools:
       - icon: globe
-        href: https://www.design.upenn.edu/people/eric-delmelle
-        text: "Personal Website"
+        href: https://www.penninjuryscience.org/outreach/community-violence-intervention-hub/penn-trauma-violence-recovery-program/
+        text: "My team ❤️"
       - icon: github
-        href: https://github.com/MUSA-550-Fall-2024/
-        text: "MUSA 550 GitHub"
+        href: https://github.com/frogzorz/
+        text: "My Github"
       - icon: twitter
-        href: https://twitter.com/ericdelmelle
-        text: "Eric Delmelle Twitter"
+        href: https://twitter.com/songjam29
+        text: "My obsolete social media"
     style: "docked"
     search: true
     collapse-level: 2
