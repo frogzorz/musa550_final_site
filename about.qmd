@@ -5,7 +5,7 @@ toc: false
 
 <div style="display: flex; gap: 10px; align-items: flex-start;">
 
-<img src="images/jamie_stl.jpg" alt="Jamie's silly selfie in St. Louis" style="width: 170px; border-radius: 10px;">
+<img src="images/jamie_stl.png" alt="Jamie's silly selfie in St. Louis" style="width: 170px; border-radius: 10px;">
 
 <div>
   <p><span style="color:red">Hello everyone</span></p>
