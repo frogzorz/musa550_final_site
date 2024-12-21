@@ -9,3 +9,8 @@ any of the interactive features.
 On this page, you might want to share more introductory or background information about 
 the analyses to help guide the reader. 
 
+# Motor vehicle injuries in the United States
+
+Cars dominate daily life in the United States. Most Americans depend on driving to get to work, school, and other everyday activities as the most time-efficient form of transportation available to them. However, motor vehicles have faced criticism as air polluters, contributors to greenhouse gas emissions, and dangers not only to the people in them, but also to the non-motorists sharing the road. In response to the latter concerns, Mayor Jim Kenney 
+
+In the past several years, traffic injuries have decreased from a high of over 3 million in 2016 to 2.38 million in 2022. However, traffic fatalities experienced a surge following the onset of the COVID-19 pandemic. (NHTSA-https://crashstats.nhtsa.dot.gov/Api/Public/ViewPublication/813560) Philadelphia was not an exception to this national trend: traffic fatalities rose from 84 in 2019 to 152 in 2020. (Axios - https://www.axios.com/local/philadelphia/2024/12/09/traffic-crash-deaths-vision-zero-2024)
