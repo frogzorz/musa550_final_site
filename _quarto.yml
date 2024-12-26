@@ -5,7 +5,7 @@ project:
     port: 3333
 
 website:
-  title: "Predicting non-motorist crash risk in Philadelphia - a MUSA 550 Final Project"
+  title: "Non-motorist crash risk in Philadelphia"
   page-footer:
     left: "songjamie97@gmail.com"
     right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
