@@ -4,6 +4,9 @@ project:
   preview:
     port: 3333
 
+execute:
+  max_memory: 4096
+
 website:
   title: "Non-motorist crash risk in Philadelphia"
   page-footer:
