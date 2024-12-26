@@ -143,17 +143,7 @@
     "href": "index.html",
     "title": "Non-motorist crash risk in Philadelphia",
     "section": "",
-    "text": "This project was created as part of Professor Eric Delmelle’s MUSA 550 Geospatial Data Science course at the University of Pennsylvania in the Fall of 2024.\nPlease use the sidebar to navigate across different sections of this project.",
-    "crumbs": [
-      "Welcome"
-    ]
-  },
-  {
-    "objectID": "index.html#welcome-to-my-musa-550-final-project",
-    "href": "index.html#welcome-to-my-musa-550-final-project",
-    "title": "Non-motorist crash risk in Philadelphia",
-    "section": "",
-    "text": "This project was created as part of Professor Eric Delmelle’s MUSA 550 Geospatial Data Science course at the University of Pennsylvania in the Fall of 2024.\nPlease use the sidebar to navigate across different sections of this project.",
+    "text": "Welcome to my MUSA 550 final project!\n\nThis project was created as part of Professor Eric Delmelle’s MUSA 550 Geospatial Data Science course at the University of Pennsylvania in the Fall of 2024.\n\n\nPlease use the sidebar to navigate across different sections of this project.",
     "crumbs": [
       "Welcome"
     ]
