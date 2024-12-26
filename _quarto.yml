@@ -4,6 +4,9 @@ project:
   preview:
     port: 3333
 
+conda:
+  environment: musa-550-fall-2024
+
 execute:
   max_memory: 4096
 

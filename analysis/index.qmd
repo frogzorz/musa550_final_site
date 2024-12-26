@@ -15,3 +15,10 @@ With dangerous streets and high motor vehicle usage rates in the US, the persist
 ## Modeling to inform strategic interventions
 
 To ensure that we continue to reduce crashes and traffic injuries despite a limited city budget, we must undertake strategic interventions and investments in the areas where crash risk is highest. Prior data show us where crashes have already occurred, but without further modeling, it may be difficult to accurately predict where crashes may occur in the future. Therefore, in this project, we will demonstrate how machine learning can be used to predict non-motorist crash risk in Philadelphia.
+
+# Project contents
+
+The project runs in the following order:
+1. crash-data-download.ipynb
+2. data-processing.ipynb
+3. modeling.ipynb
