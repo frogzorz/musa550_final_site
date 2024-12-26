@@ -3,9 +3,9 @@ title: "Non-motorist crash risk in Philadelphia"
 subtitle: "By Jamie Song, MPH"
 ---
 
-## Welcome to my MUSA 550 final project!
+# Welcome to my MUSA 550 final project!
 
-This project was created as part of Professor Eric Delmelle's MUSA 550 Geospatial Data Science course at the University of Pennsylvania in the Fall of 2024.
+#### This project was created as part of Professor Eric Delmelle's MUSA 550 Geospatial Data Science course at the University of Pennsylvania in the Fall of 2024.
 
-Please use the sidebar to navigate across different sections of this project.
+#### Please use the sidebar to navigate across different sections of this project.
 

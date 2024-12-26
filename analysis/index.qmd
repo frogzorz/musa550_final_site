@@ -19,6 +19,9 @@ To ensure that we continue to reduce crashes and traffic injuries despite a limi
 # Project contents
 
 The project runs in the following order:
-    1. crash-data-download.ipynb
-    2. data-processing.ipynb
-    3. modeling.ipynb
+
+1. crash-data-download.ipynb
+
+2. data-processing.ipynb
+
+3. modeling.ipynb
