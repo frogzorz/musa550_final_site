@@ -29,6 +29,7 @@ website:
       - about.qmd
       - section: analysis/index.qmd
         contents:
+          - analysis/crash-data-download.ipynb
           - analysis/data-processing.ipynb
           - analysis/modeling.ipynb
 

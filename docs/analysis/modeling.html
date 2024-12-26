@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -65,6 +65,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -79,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../analysis/index.html">Analysis</a></li><li class="breadcrumb-item"><a href="../analysis/modeling.html">Building our random forest model</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../analysis/index.html">Project introduction</a></li><li class="breadcrumb-item"><a href="../analysis/modeling.html">Building our random forest model</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -96,10 +99,9 @@ ul.task-list li input[type="checkbox"] {
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/course-icon.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
-      <div class="sidebar-tools-main tools-wide">
+      <div class="sidebar-tools-main">
     <a href="https://www.penninjuryscience.org/outreach/community-violence-intervention-hub/penn-trauma-violence-recovery-program/" title="My team ❤️" class="quarto-navigation-tool px-1" aria-label="My team ❤️"><i class="bi bi-globe"></i></a>
     <a href="https://github.com/frogzorz/" title="My Github" class="quarto-navigation-tool px-1" aria-label="My Github"><i class="bi bi-github"></i></a>
-    <a href="https://twitter.com/songjam29" title="My obsolete social media" class="quarto-navigation-tool px-1" aria-label="My obsolete social media"><i class="bi bi-twitter"></i></a>
 </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -124,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../analysis/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analysis</span></a>
+ <span class="menu-text">Project introduction</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -153,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content column-page-right" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../analysis/index.html">Analysis</a></li><li class="breadcrumb-item"><a href="../analysis/modeling.html">Building our random forest model</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../analysis/index.html">Project introduction</a></li><li class="breadcrumb-item"><a href="../analysis/modeling.html">Building our random forest model</a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title">Building our random forest model</h1>
 </div>
@@ -187,12 +189,16 @@ Requirement already satisfied: six in /Users/songj/miniforge3/envs/musa-550-fall
 Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
 </div>
+<p>First, let’s load the data from the previous notebook.</p>
 <section id="model-design" class="level2">
 <h2 class="anchored" data-anchor-id="model-design">Model design</h2>
 <p>Because the goal of this project is to predict future non-motorist crashes, we need to show how well our model can perform on existing data where we can verify predictions with observed data. Therefore, we will predict 2023 crashes using data from the prior five years - 2018 through 2022.</p>
 <section id="preparing-the-predictors" class="level3">
 <h3 class="anchored" data-anchor-id="preparing-the-predictors">Preparing the predictors</h3>
-<p>Along with our crash count columns, we select variables associated with commuting patterns, vehicle ownership, and road characteristics.</p>
+<p>Along with our crash count columns, we select the variables we created that are associated with commuting patterns, vehicle ownership, and road characteristics.</p>
+<section id="correlation-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="correlation-matrix">Correlation matrix</h4>
+<p>The following matrix shows the correlations between the predictor variables. There is likely collinearity in the crash counts and lagged crashes, but we will keep them because we believe they are essential for the model.</p>
 <div id="59507798" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-display">
 <div>
@@ -202,403 +208,41 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
 </div>
 </div>
-<div id="930c9fce" class="cell" data-execution_count="13">
+</section>
+</section>
+<section id="model-setup" class="level3">
+<h3 class="anchored" data-anchor-id="model-setup">Model setup</h3>
+<p>Now, we will proceed to set up the random forest model. We will also add a robust scaler to the model instead of the standard scaler because it uses the median and interquartile range, which are less sensitive to outliers than the mean and standard deviation. We also use GridSearchCV to cross-validate the model and determine a set of optimized parameters.</p>
+<div id="930c9fce" class="cell" data-execution_count="33">
 <div class="cell-output cell-output-stdout">
 <pre><code>Fitting 3 folds for each of 64 candidates, totalling 192 fits</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)
-/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/sklearn/base.py:1151: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
-  return fit_method(estimator, *args, **kwargs)</code></pre>
-</div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>0.8888039751866086</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<style>#sk-container-id-1 {color: black;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GridSearchCV(cv=3,
+             estimator=Pipeline(steps=[('robustscaler', RobustScaler()),
+                                       ('randomforestregressor',
+                                        RandomForestRegressor(random_state=42))]),
+             param_grid={'randomforestregressor__max_depth': [2, 5, 7, 9, 13,
+                                                              21, 33, 51],
+                         'randomforestregressor__n_estimators': [5, 10, 15, 20,
+                                                                 30, 50, 100,
+                                                                 200]},
+             verbose=1)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">GridSearchCV</label><div class="sk-toggleable__content"><pre>GridSearchCV(cv=3,
+             estimator=Pipeline(steps=[('robustscaler', RobustScaler()),
+                                       ('randomforestregressor',
+                                        RandomForestRegressor(random_state=42))]),
+             param_grid={'randomforestregressor__max_depth': [2, 5, 7, 9, 13,
+                                                              21, 33, 51],
+                         'randomforestregressor__n_estimators': [5, 10, 15, 20,
+                                                                 30, 50, 100,
+                                                                 200]},
+             verbose=1)</pre></div></div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox"><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">estimator: Pipeline</label><div class="sk-toggleable__content"><pre>Pipeline(steps=[('robustscaler', RobustScaler()),
+                ('randomforestregressor',
+                 RandomForestRegressor(random_state=42))])</pre></div></div></div><div class="sk-serial"><div class="sk-item"><div class="sk-serial"><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox"><label for="sk-estimator-id-3" class="sk-toggleable__label sk-toggleable__label-arrow">RobustScaler</label><div class="sk-toggleable__content"><pre>RobustScaler()</pre></div></div></div><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox"><label for="sk-estimator-id-4" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestRegressor</label><div class="sk-toggleable__content"><pre>RandomForestRegressor(random_state=42)</pre></div></div></div></div></div></div></div></div></div></div></div></div>
 </div>
 </div>
-<div id="5cfa20a2" class="cell" data-execution_count="26">
+<p>Now, we will fit and evaluate the random forest model using two metrics: mean absolute error and Poisson deviance. The mean absolute error gives us the error in terms of crashes, while the Poisson deviance is a goodness-of-fit metric for that we calculate mainly to provide a standard of comparison to other models. A lower score indicates a better fit to the Poisson distribution, which is appropriate for count-based events like injuries and crashes.</p>
+<div id="5cfa20a2" class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Model Performance
 Average Absolute Error: 0.8172 crashes
@@ -606,7 +250,8 @@ We do not report MAPE because of zero values in the observed data
 Poisson Deviance: 0.5216537518327811</code></pre>
 </div>
 </div>
-<p>The model</p>
+<p>The model predictions had a mean absolute error of about 0.8 crashes, which is nowhere close to perfect, but may still be a decent model in comparison to other options. The Poisson deviance is approximately 0.52.</p>
+<p>Now, let’s map the predicted values.</p>
 <div id="b506abbc" class="cell" data-execution_count="27">
 <div class="cell-output cell-output-display">
 <div>
@@ -616,6 +261,8 @@ Poisson Deviance: 0.5216537518327811</code></pre>
 </div>
 </div>
 </div>
+<p>The model predicts high crash counts in University City, Kensington, and the Market East/Chinatown section of Center City, as well as along North Broad Street and the western end of Market Street. The large tract encompassing Fairmount Park and parts of West Philadelphia also has a higher number of crashes.</p>
+<p>Let’s now evaluate the model performance by mapping the errors.</p>
 <div id="8b71d375" class="cell" data-execution_count="30">
 <div class="cell-output cell-output-display">
 <div>
@@ -625,26 +272,22 @@ Poisson Deviance: 0.5216537518327811</code></pre>
 </div>
 </div>
 </div>
-<p>The map shows that error values are distributed across the city and not clustered in any specific area, other than University City, which has the highest error at around 6 crashes.</p>
+<p>The map shows that error values are distributed across the city and not clustered in any specific area, other than University City, which has the greatest error magnitude at around -6 crashes. The map also shows that the model did not severely overpredict or underpredict in most tracts.</p>
 </section>
 </section>
-<section id="comparison-with-negative-binomial-regression" class="level2">
-<h2 class="anchored" data-anchor-id="comparison-with-negative-binomial-regression">Comparison with negative binomial regression</h2>
-<p>For the sake of comparison with a more traditional model that is used for count data, we will run a negative binomial regression to predict 2023 crash counts.</p>
-<div id="23afb763" class="cell" data-execution_count="18">
+<section id="comparison-with-poisson-regression" class="level2">
+<h2 class="anchored" data-anchor-id="comparison-with-poisson-regression">Comparison with Poisson regression</h2>
+<p>For the sake of comparison with a more traditional model that is used for count data, we will run a Poisson regression to predict 2023 crash counts using the same predictor variables as the random forest model.</p>
+<div id="23afb763" class="cell" data-execution_count="39">
 <div class="cell-output cell-output-stdout">
-<pre><code>Negative binomial regression model performance
-Average absolute error: 1.8731 crashes
+<pre><code>Poisson model performance
+Average absolute error: 1.5590 crashes
 We do not report MAPE because of zero values in the observed data
-Poisson Deviance: 1.6380820577873552</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/Users/songj/miniforge3/envs/musa-550-fall-2024/lib/python3.10/site-packages/statsmodels/genmod/families/family.py:1367: ValueWarning: Negative binomial dispersion parameter alpha not set. Using default value alpha=1.0.
-  warnings.warn("Negative binomial dispersion parameter alpha not "</code></pre>
+Poisson Deviance: 1.3527141666894478</code></pre>
 </div>
 </div>
-<p>The average absolute error was much greater than that of the random forest model, as well as the Poisson deviance. This suggests that the negative binomial model severely underperforms in comparison to the random forest model.</p>
-<div id="97179f98" class="cell" data-execution_count="32">
+<p>The average absolute error was much greater than that of the random forest model, as well as the Poisson deviance. This suggests that the Poisson model underperforms in comparison to the random forest model.</p>
+<div id="97179f98" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -653,8 +296,24 @@ Poisson Deviance: 1.6380820577873552</code></pre>
 </div>
 </div>
 </div>
-<p>We can see that the negative binomial model had huge errors when predicting crashes in University City, as well as some tracts in Kensington and Center City. The random forest model also overpredicted in University City, but not nearly to the same extent, since it is barely even visible when the maps share a color ramp.</p>
+<p>We can see that the Poisson model had huge errors when predicting crashes in University City, as well as some tracts in Kensington and Center City. The random forest model also overpredicted in University City, but not nearly to the same extent.</p>
 <p>From this comparison, we suggest that predictions of non-motorist crash risk, as well as motor vehicle crash risk in general, can benefit from more advanced machine learning techniques like optimized random forest regression.</p>
+<p>Now, let’s produce predictions for 2024 before wrapping up our analysis.</p>
+<div id="c2f7b3ab" class="cell" data-execution_count="41">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="modeling_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The predictions are quite similar between 2023 and 2024, which is expected because of the four shared years of data between the two predictor datasets.</p>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Based on our results, we suggest that random forest modeling techniques are useful for predicting non-motorist crash risk in Philadelphia. Our prediction of non-motorist crash risk shows that University City, Market East, Fairmount Park, North Broad Street, western Market Street, and Kensington should be focus areas for traffic calming and urban design improvements to prevent further vehicular collisions with non-motorists.</p>
+<p>We also recommend further refinement of the model, using more relevant data and adjusting the number of years of prior crash data to use in the prediction process. The geographic unit may be changed to block groups, fishnet grid cells, or road segments to improve the granularity and precision of the features and model predictions. Further variables to describe the characteristics of the road network, such as speed limits and highway off-ramp locations, may be useful in improving the accuracy of the model.</p>
 
 
 </section>
@@ -1081,7 +740,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>songjamie97@gmail.com</p>
+<p>Email me at songjamie97@gmail.com</p>
 </div>   
     <div class="nav-footer-center">
       &nbsp;
