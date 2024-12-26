@@ -30,14 +30,12 @@ website:
     style: "docked"
     search: true
     contents:
-      - href: index.qmd
+      - href: analysis/index.qmd
         text: Welcome
       - about.qmd
-      - section: analysis/index.qmd
-        contents:
-          - analysis/crash-data-download.ipynb
-          - analysis/data-processing.ipynb
-          - analysis/modeling.ipynb
+      - analysis/crash-data-download.ipynb
+      - analysis/data-processing.ipynb
+      - analysis/modeling.ipynb
 
 format:
   html:
