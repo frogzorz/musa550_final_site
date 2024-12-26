@@ -38,7 +38,7 @@ website:
 
 format:
   html:
-    highlight-style: solarized
+    highlight-style: github
     theme: flatly
     css: styles.css
     code-copy: true
