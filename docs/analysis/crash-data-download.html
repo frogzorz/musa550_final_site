@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Setting up our analysis – Non-motorist crash risk in Philadelphia</title>
+<title>Loading the data – Non-motorist crash risk in Philadelphia</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -79,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../analysis/index.html">Project introduction</a></li><li class="breadcrumb-item"><a href="../analysis/crash-data-download.html">Setting up our analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../analysis/index.html">Project introduction</a></li><li class="breadcrumb-item"><a href="../analysis/crash-data-download.html">Loading the data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -117,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About Me</span></a>
+ <span class="menu-text">About me</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -132,13 +166,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/crash-data-download.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Setting up our analysis</span></a>
+ <span class="menu-text">Loading the data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../analysis/data-processing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">All crashes by census tract, normalized by land area (sq. km.)</span></a>
+ <span class="menu-text">Further data processing and viz.</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -158,9 +192,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content column-page-right" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../analysis/index.html">Project introduction</a></li><li class="breadcrumb-item"><a href="../analysis/crash-data-download.html">Setting up our analysis</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../analysis/index.html">Project introduction</a></li><li class="breadcrumb-item"><a href="../analysis/crash-data-download.html">Loading the data</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Setting up our analysis</h1>
+<h1 class="title">Loading the data</h1>
 </div>
 
 
@@ -186,7 +220,96 @@ ul.task-list li input[type="checkbox"] {
 <li>American Community Survey 5-year estimates (USCB ACS via <code>census</code>)</li>
 <li>Philadelphia road network from <a href="https://data-pennshare.opendata.arcgis.com/datasets/PennShare::pennsylvania-local-roads/about">PennDOT Open Data</a></li>
 </ul>
+<div id="50683b94" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load necessary libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> zipfile</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pysal</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> esda</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> contextily <span class="im">as</span> ctx</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> folium</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cenpy <span class="im">as</span> c</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> osmnx <span class="im">as</span> ox</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> display, HTML</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folium.plugins <span class="im">import</span> TimeSliderChoropleth</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> census <span class="im">import</span> Census</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> us <span class="im">import</span> states</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> folium <span class="im">import</span> plugins</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> QuantileTransformer</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.geometry <span class="im">import</span> Point, LineString</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> esda.moran <span class="im">import</span> Moran_Local</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> libpysal.weights <span class="im">import</span> Queen</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> shapely.ops <span class="im">import</span> nearest_points</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div id="303a1db3" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define download paths</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>base_url <span class="op">=</span> <span class="st">"https://gis.penndot.gov/gishub/crashZip/County/Philadelphia/Philadelphia_"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>download_dir <span class="op">=</span> <span class="st">"philly_crash_data"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>os.makedirs(download_dir, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># create an empty list to store dataframes</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>crash_data_list <span class="op">=</span> []</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># loop through 2018 to 2023</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2018</span>, <span class="dv">2024</span>):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Processing data for year </span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">..."</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    zip_filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>download_dir<span class="sc">}</span><span class="ss">/Philadelphia_</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">.zip"</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    csv_filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>download_dir<span class="sc">}</span><span class="ss">/CRASH_PHILADELPHIA_</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">.csv"</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># download the zip file if it doesn't exist yet</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> os.path.exists(zip_filename):</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base_url<span class="sc">}{</span>year<span class="sc">}</span><span class="ss">.zip"</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> requests.get(url)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> <span class="bu">open</span>(zip_filename, <span class="st">"wb"</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                <span class="bu">file</span>.write(response.content)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Downloaded: </span><span class="sc">{</span>zip_filename<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Failed to download data for year </span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">. URL: </span><span class="sc">{</span>url<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># extract the csv</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> os.path.exists(csv_filename):</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> zipfile.ZipFile(zip_filename, <span class="st">'r'</span>) <span class="im">as</span> zip_ref:</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            csv_files <span class="op">=</span> [name <span class="cf">for</span> name <span class="kw">in</span> zip_ref.namelist() <span class="cf">if</span> name.endswith(<span class="ss">f"CRASH_PHILADELPHIA_</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">.csv"</span>)]</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> csv_files:</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>                zip_ref.extract(csv_files[<span class="dv">0</span>], download_dir)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"Extracted: </span><span class="sc">{</span>csv_filename<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="ss">f"Relevant CSV file not found in </span><span class="sc">{</span>zip_filename<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># load csv as df</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> os.path.exists(csv_filename):</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.read_csv(csv_filename)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">'year'</span>] <span class="op">=</span> year</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        crash_data_list.append(df)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co"># combine all years into a single df</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> crash_data_list:</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    all_crashes <span class="op">=</span> pd.concat(crash_data_list, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Combined all years into a single DataFrame."</span>)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No data loaded."</span>)</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="co"># delete the zip and csv files</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2018</span>, <span class="dv">2024</span>):</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    zip_filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>download_dir<span class="sc">}</span><span class="ss">/Philadelphia_</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">.zip"</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    csv_filename <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>download_dir<span class="sc">}</span><span class="ss">/CRASH_PHILADELPHIA_</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">.csv"</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> os.path.exists(zip_filename):</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>        os.remove(zip_filename)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Deleted: </span><span class="sc">{</span>zip_filename<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> os.path.exists(csv_filename):</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>        os.remove(csv_filename)</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Deleted: </span><span class="sc">{</span>csv_filename<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Processing data for year 2018...
 Processing data for year 2019...
@@ -208,10 +331,17 @@ Deleted: philly_crash_data/CRASH_PHILADELPHIA_2022.csv
 Deleted: philly_crash_data/Philadelphia_2023.zip
 Deleted: philly_crash_data/CRASH_PHILADELPHIA_2023.csv</code></pre>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/xd/w__5x95d37b_lkks4djd2m9h0000gp/T/ipykernel_13343/1287730822.py:40: DtypeWarning: Columns (91,92,95,96,97) have mixed types. Specify dtype option on import or set low_memory=False.
-  df = pd.read_csv(csv_filename)</code></pre>
 </div>
+<div id="ef0f05bc" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select for non-motorist crashes only</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>non_motorist_crashes <span class="op">=</span> all_crashes[all_crashes[<span class="st">'NONMOTR_COUNT'</span>] <span class="op">&gt;</span> <span class="dv">0</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># filter out records with missing geography</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>non_motorist_crashes <span class="op">=</span> non_motorist_crashes.dropna(subset<span class="op">=</span>[<span class="st">'DEC_LAT'</span>, <span class="st">'DEC_LONG'</span>])</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># convert to gdf using lat and long</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>geometry <span class="op">=</span> gpd.points_from_xy(non_motorist_crashes[<span class="st">'DEC_LONG'</span>], non_motorist_crashes[<span class="st">'DEC_LAT'</span>])</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>non_motorist_gdf <span class="op">=</span> gpd.GeoDataFrame(non_motorist_crashes, geometry<span class="op">=</span>geometry, crs<span class="op">=</span><span class="st">"EPSG:4326"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="visualizing-the-crash-data" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-the-crash-data">Visualizing the crash data</h2>
@@ -219,6 +349,54 @@ Deleted: philly_crash_data/CRASH_PHILADELPHIA_2023.csv</code></pre>
 <h3 class="anchored" data-anchor-id="crash-point-data-by-year">Crash point data by year</h3>
 <p>Now that we have imported and prepared the crash data, we will quickly visualize them in the following interactive map.</p>
 <p>Years can be toggled on and off to see distributions of crashes across time. Reducing the number of years visualized as well as zooming into the map reduces the relative size of the dots, making it easier to see the spatial distribution of crashes.</p>
+<div id="ff9b4bd6" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a base map centered on Philadelphia</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> folium.Map(location<span class="op">=</span>[<span class="fl">39.9526</span>, <span class="op">-</span><span class="fl">75.1652</span>], zoom_start<span class="op">=</span><span class="dv">12</span>, tiles<span class="op">=</span><span class="st">"cartodb positron"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># group crashes by year</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>year_groups <span class="op">=</span> non_motorist_gdf.groupby(<span class="st">'year'</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create a feature group for each year</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>year_layers <span class="op">=</span> {}</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year, group <span class="kw">in</span> year_groups:</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    year_data <span class="op">=</span> group.copy()</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create geometries from lat and long</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    year_data[<span class="st">'geometry'</span>] <span class="op">=</span> gpd.GeoSeries.from_xy(year_data[<span class="st">'DEC_LONG'</span>], year_data[<span class="st">'DEC_LAT'</span>])</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    year_gdf <span class="op">=</span> gpd.GeoDataFrame(year_data, geometry<span class="op">=</span><span class="st">'geometry'</span>, crs<span class="op">=</span><span class="st">"EPSG:4326"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a feature group for year</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    year_layer <span class="op">=</span> folium.FeatureGroup(name<span class="op">=</span><span class="bu">str</span>(year))</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _, row <span class="kw">in</span> year_gdf.iterrows():</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        folium.CircleMarker(</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>            location<span class="op">=</span>[row[<span class="st">'DEC_LAT'</span>], row[<span class="st">'DEC_LONG'</span>]],</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>            radius<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>            popup<span class="op">=</span><span class="ss">f"Crash ID: </span><span class="sc">{</span>row[<span class="st">'CRN'</span>]<span class="sc">}</span><span class="ss">&lt;br&gt;Year: </span><span class="sc">{</span>row[<span class="st">'year'</span>]<span class="sc">}</span><span class="ss">"</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>            color<span class="op">=</span><span class="st">'blue'</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            fill<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>            fill_color<span class="op">=</span><span class="st">'blue'</span>,</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>            fill_opacity<span class="op">=</span><span class="fl">0.6</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>        ).add_to(year_layer)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add year layer to dictionary</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>    year_layers[year] <span class="op">=</span> year_layer</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># add all layers to map</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year, layer <span class="kw">in</span> year_layers.items():</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>    layer.add_to(m)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co"># add layer control to toggle years with checkboxes</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>folium.LayerControl(collapsed<span class="op">=</span><span class="va">False</span>).add_to(m)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co"># display map</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>m</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="9e03b8df" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># save non motorist crashes as a geojson file for next notebook</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>non_motorist_gdf.to_file(<span class="st">"non_motorist_gdf.geojson"</span>, driver<span class="op">=</span><span class="st">"GeoJSON"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
