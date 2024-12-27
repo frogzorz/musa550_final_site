@@ -14,7 +14,7 @@ website:
   title: "Non-motorist crash risk in Philadelphia"
   page-footer:
     left: "Email me at songjamie97@gmail.com"
-    right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
+    right: "Built with ❤️ and [Quarto](https://quarto.org/)."
 
   sidebar:
     logo: "images/course-icon.png"
