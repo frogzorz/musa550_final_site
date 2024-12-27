@@ -263,10 +263,10 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
 <section id="model-design" class="level2">
 <h2 class="anchored" data-anchor-id="model-design">Model design</h2>
-<p>Because the goal of this project is to predict future non-motorist crashes, we need to show how well our model can perform on existing data where we can verify predictions with observed data. Therefore, we will predict 2023 crashes using data from the prior five years - 2018 through 2022.</p>
+<p>Because the goal of this project is to predict future non-motorist crashes, we need to show how well our model can perform on existing data where we can verify predictions with observed data. Therefore, we will predict 2023 crashes using non-motorist crash data from the prior five years - 2018 through 2022 - as well as the spatially lagged counts of those crashes.</p>
 <section id="preparing-the-predictors" class="level3">
 <h3 class="anchored" data-anchor-id="preparing-the-predictors">Preparing the predictors</h3>
-<p>Along with our crash count columns, we select the variables we created that are associated with commuting patterns, vehicle ownership, and road characteristics.</p>
+<p>Along with our crash count and crash lag columns, we select the variables we created that are associated with commuting patterns, vehicle ownership, and road characteristics.</p>
 <div id="7a2524be" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select necessary columns</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>predictor_columns <span class="op">=</span> [col <span class="cf">for</span> col <span class="kw">in</span> geo_data.columns <span class="cf">if</span> col.startswith(<span class="st">"crash_"</span>) <span class="kw">or</span> col.endswith(<span class="st">"_proportion"</span>) <span class="kw">or</span> col <span class="op">==</span> <span class="st">"total_length"</span> <span class="kw">or</span> col <span class="op">==</span> <span class="st">"intersection_count"</span> <span class="kw">or</span> col.startswith(<span class="st">"pct_comm"</span>) <span class="kw">or</span> col.startswith(<span class="st">"pct_veh"</span>)]</span>
