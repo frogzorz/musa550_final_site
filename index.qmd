@@ -7,5 +7,7 @@ subtitle: "by Jamie Song, MPH for MUSA 550"
 
 #### This project was created as part of Professor Eric Delmelle's MUSA 550 Geospatial Data Science course at the University of Pennsylvania in the Fall of 2024.
 
-#### Please use the sidebar to navigate across different sections of this project.
+#### Please use the sidebar to navigate across different sections of this project. 
+
+Or, use [this link](https://frogzorz.github.io/musa550_final_site/analysis/) to start at the beginning of the project.
 
